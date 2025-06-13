@@ -7,8 +7,8 @@ Created on Wed Mar 29 04:13:50 2025
 """
 
 ###Lineas que tengo que agregar para que funcione
-import sys
-sys.path.append('/home/pedro/UTN/MATERIAS/2025/TC2/TC2Virtual/lib/python3.12/site-packages')
+#import sys
+#sys.path.append('/home/pedro/UTN/MATERIAS/2025/TC2/TC2Virtual/lib/python3.12/site-packages')
 
 # Librerías externas NumPy, SciPy y Matplotlib
 from scipy.signal import TransferFunction
@@ -26,7 +26,6 @@ Rn4=Rn1=9000/wz
 Rn=31830/wz
 Rn3=2533/wz
 
-
 R4=R1=Rn1*wz
 R3=Rn3*wz
 R=Rn*wz
@@ -35,15 +34,15 @@ C2=Cn2/(wz*w0)
 
 
 
-# Definición de la función de transferencia (s-1)/(s+1)
-numerador = [(1+Rn4)*(1/(Rn*Cn)) , 0]  # Coeficientes de s-1
-denominador = [1, 1/(Rn*Cn), Rn4/(Rn1*Rn3*Cn*Cn2)]  # Coeficientes de s+1
+# Definición de la función de transferencia
+numerador = [(1+Rn4)*(1/(Rn*Cn)) , 0] 
+denominador = [1, 1/(Rn*Cn), Rn4/(Rn1*Rn3*Cn*Cn2)]  
 
 # Crear la función de transferencia
 my_tf = TransferFunction( numerador, denominador)
 
 # Define el rango de frecuencias para la simulación
-frecuencias = np.logspace(-3, 3, 500)  # Rango de frecuencias de 0.01 a 100 rad/s con 500 puntos
+frecuencias = np.logspace(-3, 3, 500)   
 
 # Calcular la respuesta en frecuencia
 w, mag, fase = signal.bode(my_tf, frecuencias)
@@ -51,9 +50,9 @@ w, mag, fase = signal.bode(my_tf, frecuencias)
 # Graficar la magnitud
 plt.figure(figsize=(10, 6))
 
-# Magnitud (en amplitud, no en dB)
+# Magnitud (en dB)
 plt.subplot(2, 1, 1)
-plt.semilogx(w, mag)  #Convierte dB en veces
+plt.semilogx(w, mag)  
 plt.title('Respuesta en Magnitud y Fase de la Transferencia')
 plt.ylabel('Modulo (Amplitud)')
 plt.grid()
@@ -73,15 +72,15 @@ plt.close('all')
 
 pzmap(my_tf, fig_id=2) #S plane pole/zero plot
 
-# Definición de la función de transferencia (s-1)/(s+1)
-numerador = [(1+R4/R5)*(1/(R*C)) , 0]  # Coeficientes de s-1
-denominador = [1, 1/(R*C), R4/(R1*R3*R5*C*C2)]  # Coeficientes de s+1
+# Definición de la función de transferencia 
+numerador = [(1+R4/R5)*(1/(R*C)) , 0]  
+denominador = [1, 1/(R*C), R4/(R1*R3*R5*C*C2)]  
 
 # Crear la función de transferencia
 my_tf = TransferFunction( numerador, denominador)
 
 # Define el rango de frecuencias para la simulación
-frecuencias = np.logspace(0, 6, 500)  # Rango de frecuencias de 0.01 a 100 rad/s con 500 puntos
+frecuencias = np.logspace(0, 6, 500)  # Rango de frecuencias
 
 # Calcular la respuesta en frecuencia
 w, mag, fase = signal.bode(my_tf, frecuencias)
@@ -89,9 +88,9 @@ w, mag, fase = signal.bode(my_tf, frecuencias)
 # Graficar la magnitud
 plt.figure(figsize=(10, 6))
 
-# Magnitud (en amplitud, no en dB)
+# Magnitud (en dB)
 plt.subplot(2, 1, 1)
-plt.semilogx(w/(2*3.1416), mag)  #Convierte dB en veces
+plt.semilogx(w/(2*3.1416), mag)
 plt.title('Respuesta en Magnitud y Fase de la Transferencia')
 plt.ylabel('Modulo (Amplitud)')
 plt.grid()
